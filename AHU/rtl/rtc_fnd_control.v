@@ -9,7 +9,7 @@ module rtc_fnd_control(
     wire [3:0] hr_10 = current_time[23:20]; wire [3:0] hr_1 = current_time[19:16];
     wire [3:0] mi_10 = current_time[15:12]; wire [3:0] mi_1 = current_time[11:8];
 
-    // 내부 1ms 틱 (팀원 코드 구조 동일)
+    // 내부 1ms 틱
     wire tick_1ms;
     tick_gen #(.COUNT_MAX(100_000)) u_tick_1ms (.clk(clk), .reset(reset), .tick(tick_1ms));
     
