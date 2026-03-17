@@ -18,16 +18,19 @@ FPGA 기반 임베디드 전자레인지 시스템 설계FSM을 활용한 하드
   IDLE: 조리 대기 및 타이머 설정 상태 
   COOK: 조리 가동 상태 (DC 모터, 타이머, LED 시프트 활성화) 
   PAUSE: 조리 일시정지 및 도어 오픈 시 즉시 진입하는 안전 상태 
-  FINISH: 조리 완료 알림 및 멜로디 출력 상태 
-<img width="801" height="582" alt="image" src="https://github.com/user-attachments/assets/003718af-e0ee-4d12-acd1-d83563581e70" />
-<img width="1092" height="773" alt="image" src="https://github.com/user-attachments/assets/fc626a1b-94ac-4a3b-a932-86c1163be215" />
-
-
+  FINISH: 조리 완료 알림 및 멜로디 출력 상태
   주요 서브모듈 구현 
+  
   Timer & FND: BCD 기반 카운트다운 로직 및 1ms 스캔 주기 기반의 7-Segment 표시 제어 
   Actuator Control: * 70% Duty Cycle 고정 PWM을 이용한 DC 모터 속도 제어 50Hz 주기 
     - PWM을 이용한 도어 개폐용 서보 모터 제어 (0° ~ 90°) 
     - 상태별 가변 주파수 사각파를 이용한 부저 멜로디 연주
+    
+<img width="801" height="582" alt="image" src="https://github.com/user-attachments/assets/003718af-e0ee-4d12-acd1-d83563581e70" />
+<img width="1092" height="773" alt="image" src="https://github.com/user-attachments/assets/fc626a1b-94ac-4a3b-a932-86c1163be215" />
+
+
+  
   
 4. 트러블슈팅 (Trouble-shooting)
 설계 과정에서 발생한 문제를 논리적으로 해결하며 시스템 완성도를 높였습니다.
