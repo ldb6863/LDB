@@ -19,6 +19,7 @@ FPGA 기반 임베디드 전자레인지 시스템 설계FSM을 활용한 하드
   COOK: 조리 가동 상태 (DC 모터, 타이머, LED 시프트 활성화) 
   PAUSE: 조리 일시정지 및 도어 오픈 시 즉시 진입하는 안전 상태 
   FINISH: 조리 완료 알림 및 멜로디 출력 상태 
+<img width="801" height="582" alt="image" src="https://github.com/user-attachments/assets/003718af-e0ee-4d12-acd1-d83563581e70" />
 
   주요 서브모듈 구현 
   Timer & FND: BCD 기반 카운트다운 로직 및 1ms 스캔 주기 기반의 7-Segment 표시 제어 
