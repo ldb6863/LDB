@@ -27,7 +27,7 @@ module ac_controller(
     assign ac_running = r_ac_running;
 
     // =========================================================
-    // ★ 2단계 관문 로직: 온도 비교 (현재 온도 >= 목표 온도)
+    // 2단계 관문 로직: 온도 비교 (현재 온도 >= 목표 온도)
     // =========================================================
     wire temp_is_high = (cur_temp > tgt_temp) || 
                         ((cur_temp == tgt_temp) && (cur_temp_dec >= tgt_temp_dec));
