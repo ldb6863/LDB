@@ -16,7 +16,7 @@ module ultrasonic_sensor(
     reg [12:0] r_cm_tick;
     reg [11:0] r_temp_dist;
 
-    // 1. Trig 신호 생성 (기존 유지)
+    // 1. Trig 신호 생성
     always @(posedge clk or posedge reset) begin
         if (reset) begin r_period_cnt <= 0; trig <= 0; end 
         else begin
@@ -27,7 +27,7 @@ module ultrasonic_sensor(
         end
     end
 
-    // 2. 타이밍 에러 없는 거리 계산 (나눗셈 제거)
+    // 2. 타이밍 에러 없는 거리 계산
     always @(posedge clk or posedge reset) begin
         if (reset) begin 
             r_echo_d <= 0; distance_cm <= 0; 
