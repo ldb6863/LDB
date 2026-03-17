@@ -1,0 +1,54 @@
+`timescale 1ns / 1ps
+
+module servo_motor(
+    input  clk,
+    input  reset,
+    input  door_cmd,    // FSM에서 결정된 문 상태 (0:Close, 1:Open) [cite: 34]
+    output reg pwm_servo    
+);
+    // --- 1. 명령 변화 감지 (Edge Detection) ---
+    reg  r_door_cmd_old;
+    always @(posedge clk or posedge reset) begin
+        if (reset) r_door_cmd_old <= 1'b0;
+        else       r_door_cmd_old <= door_cmd;
+    end
+
+    // 문 상태 명령이 바뀌었을 때 (0->1 또는 1->0) [cite: 40]
+    wire w_cmd_changed = door_cmd ^ r_door_cmd_old;
+
+    // --- 2. 작동 타이머 제어 (진동 방지) ---
+    reg [25:0] r_active_cnt;
+    wire w_is_moving = (r_active_cnt > 0);
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            r_active_cnt <= 0;
+        end else if (w_cmd_changed) begin
+            r_active_cnt <= 26'd60_000_000; // 명령 변경 시 0.6초간 타이머 시작
+        end else if (w_is_moving) begin
+            r_active_cnt <= r_active_cnt - 1'b1;
+        end
+    end
+
+    // --- 3. PWM 주기 생성 (50Hz, 20ms) ---
+    reg [20:0] r_pwm_cnt;
+    always @(posedge clk or posedge reset) begin
+        if (reset) r_pwm_cnt <= 21'd0;
+        else if (r_pwm_cnt >= 21'd2_000_000 - 1) r_pwm_cnt <= 21'd0;
+        else r_pwm_cnt <= r_pwm_cnt + 1'b1; 
+    end
+
+    // --- 4. 듀티 사이클 결정 ---
+    wire [19:0] w_duty_value = (door_cmd) ? 20'd200_000 : 20'd100_000;
+
+    // --- 5. PWM 출력 제어 ---
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            pwm_servo <= 1'b0; 
+        end else if (w_is_moving) begin
+            pwm_servo <= (r_pwm_cnt < w_duty_value) ? 1'b1 : 1'b0;
+        end else begin
+            pwm_servo <= 1'b0; // 0.6초가 지나면 펄스 차단 (진동 방지) [cite: 51]
+        end
+    end
+endmodule
