@@ -6,9 +6,9 @@ module dht11(
     input start_trigger,   
     inout dht11_pin,
     output reg [7:0] temp,
-    output reg [7:0] temp_dec, // [추가] 온도 소수점 자리
+    output reg [7:0] temp_dec,
     output reg [7:0] humi,
-    output reg [7:0] humi_dec, // [추가] 온도 소수점 자리
+    output reg [7:0] humi_dec,
     output reg data_valid
 );
 
@@ -24,7 +24,7 @@ module dht11(
     reg dht_out, dht_dir;
     assign dht11_pin = dht_dir ? dht_out : 1'bz;
 
-    // 3. 상태 머신 (데이터시트 기준 세분화)
+    // 3. 상태 머신
     localparam S_IDLE       = 4'd0;
     localparam S_START_LOW  = 4'd1;
     localparam S_START_HIGH = 4'd2;
@@ -32,7 +32,7 @@ module dht11(
     localparam S_ACK_HIGH   = 4'd4;
     localparam S_READ_LOW   = 4'd5;
     localparam S_READ_HIGH  = 4'd6;
-    localparam S_LAST_LOW   = 4'd7; // [추가] 마지막 50us Low 구간 처리
+    localparam S_LAST_LOW   = 4'd7;
     localparam S_DONE       = 4'd8;
 
     reg [3:0] state;
