@@ -1,4 +1,4 @@
-# 📟 FPGA 기반 임베디드 전자레인지 시스템 설계
+# FPGA 기반 임베디드 전자레인지 시스템 설계
 > **FSM을 활용한 하드웨어 통합 제어 및 PWM 정밀 구동 실현**
 
 ## 1. 프로젝트 개요 (Project Introduction)
@@ -18,7 +18,7 @@
 | **Toolchain** | Vivado Design 2021.1 |
 
 ## 3. 핵심 설계 및 기능 (System Design)
-### 🔄 Finite State Machine (FSM)
+### Finite State Machine (FSM)
 시스템의 안정성을 위해 상태 변화를 정의하고 중앙 집중식 제어 로직을 구현했습니다.
 * **IDLE (2'b00):** 초기 상태 및 조리 대기. 모든 모터가 정지하며 타이머 설정값 유지
 * **COOK (2'b01):** 조리 가동 상태. DC 모터, 타이머, LED 시프트 동시 활성화
@@ -29,7 +29,7 @@
 
 <img width="1092" height="773" alt="image" src="https://github.com/user-attachments/assets/fc626a1b-94ac-4a3b-a932-86c1163be215" />
 
-### 🛠 주요 모듈 구현 특징
+### 주요 모듈 구현 특징
 * **Timer & FND:** 1초 주기의 카운트다운 기준 신호를 생성하고 BCD 기반 시간 데이터(분/초)를 표시
 * **DC Motor Control:** 70% Duty Cycle의 PWM 신호를 생성하여 회전판 속도 제어
 * **Servo Motor Control:** 50Hz 주기 기반의 PWM으로 도어 개폐 각도(0°~90°) 제어 및 진동 방지 로직 적용
