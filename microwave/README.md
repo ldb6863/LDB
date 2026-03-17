@@ -22,6 +22,7 @@ FPGA 기반 임베디드 전자레인지 시스템 설계FSM을 활용한 하드
 <img width="801" height="582" alt="image" src="https://github.com/user-attachments/assets/003718af-e0ee-4d12-acd1-d83563581e70" />
 <img width="1092" height="773" alt="image" src="https://github.com/user-attachments/assets/fc626a1b-94ac-4a3b-a932-86c1163be215" />
 
+
   주요 서브모듈 구현 
   Timer & FND: BCD 기반 카운트다운 로직 및 1ms 스캔 주기 기반의 7-Segment 표시 제어 
   Actuator Control: * 70% Duty Cycle 고정 PWM을 이용한 DC 모터 속도 제어 50Hz 주기 
