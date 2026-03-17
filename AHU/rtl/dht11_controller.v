@@ -22,7 +22,7 @@ module dht11_controller(
         .tick(w_tick_1s)
     );
 
-    // 2. FSM이 포함된 순수 센서 통신 모듈 (이전에 작성한 dht11.v)
+    // 2. FSM이 포함된 순수 센서 통신 모듈
     dht11 u_dht11 (
         .clk(clk),
         .reset(reset),
