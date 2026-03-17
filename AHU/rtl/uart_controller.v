@@ -6,7 +6,7 @@ module uart_controller(
     // 물리 핀
     input rx, output tx,
 
-    // 1. 수신: 파서 결과 출력들 (유저님 & 팀원)
+    // 1. 수신: 파서 결과 출력들
     output rtc_set_trigger,
     output [47:0] rtc_set_time_bcd,
     output rtc_set_alarm_trig,
@@ -14,7 +14,7 @@ module uart_controller(
     output [7:0] target_temp, target_temp_dec,
 
     // 2. 송신: 1초마다 보낼 통합 데이터 입력
-    input unified_tx_trigger,     // 1초(1Hz) 틱 하나만 받으면 됨!
+    input unified_tx_trigger,     // 1초(1Hz) 틱 하나만 받으면 됨
     input [47:0] current_time,
     input [7:0] dht_temp, dht_temp_dec,
     input [7:0] dht_humi, dht_humi_dec
@@ -31,7 +31,7 @@ module uart_controller(
         .clk(clk), .reset(reset), .tx_data(w_tx_data), .tx_start(w_tx_start), .tx(tx), .tx_done(), .tx_busy(w_tx_busy)
     );
 
-    // [2] 수신부: 귀는 하나, 뇌는 두 개! (기존과 동일)
+    // [2] 수신부
     rtc_uart_parser u_rtc_parser(
         .clk(clk), .reset(reset), .rx_done(w_rx_done), .rx_data(w_rx_data), 
         .set_trigger(rtc_set_trigger), .set_time_bcd(rtc_set_time_bcd),
@@ -42,7 +42,7 @@ module uart_controller(
         .target_temp(target_temp), .target_temp_dec(target_temp_dec)
     );
 
-    // [3] 송신부: 통합 센더 하나로 끝!
+    // [3] 송신부
     unified_data_sender u_sender(
         .clk(clk), .reset(reset),
         .data_valid(unified_tx_trigger), .tx_busy(w_tx_busy),
