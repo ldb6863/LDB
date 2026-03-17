@@ -7,7 +7,7 @@ module rtc_uart_parser(
     output reg set_trigger,
     output reg [47:0] set_time_bcd,
     
-    // ★ 새로 추가된 알람 설정 포트
+    // 새로 추가된 알람 설정 포트
     output reg set_alarm_trig,
     output reg [15:0] alarm_time_bcd
 );
