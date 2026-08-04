@@ -93,16 +93,6 @@
 
 ---
 
-## GitHub Stats
-
-<div align="center">
-
-<img src="https://github-readme-stats.vercel.app/api?username=ldb6863&show_icons=true&hide_border=true&theme=transparent" height="160" />
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ldb6863&layout=compact&hide_border=true&theme=transparent" height="160" />
-
-</div>
-
----
 
 <div align="center">
 
