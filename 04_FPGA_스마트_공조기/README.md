@@ -1,32 +1,49 @@
-# FPGA 기반 스마트 공조기 시스템 설계
+# FPGA 기반 스마트 공조 시스템 (Smart HVAC System)
+> **Master FSM 기반의 온습도 임계값 설정 및 자동 제어 로직 구현**
 
-## 개요
-FSM 기반으로 온습도 측정과 RTC(실시간 시계) 기반 알람/시간관리를 통합 제어하는 프로젝트입니다. DC·서보모터, DS1302 RTC, 초음파센서, FND 등을 통합 구동하고, UART·로터리 인코더 기반 시간 설정 기능을 구현했습니다.
+## 1. 프로젝트 개요 (Project Introduction)
+* **주제:** FPGA를 활용한 실시간 온습도 모니터링 및 액추에이터 자동 제어 시스템 설계
+* **목표:**
+    * DHT11 센서 데이터를 수집하여 현재 온습도와 설정된 임계값에 따른 실시간 제어
+    * Master FSM을 통한 시스템 상태 관리 및 버튼 입력을 활용한 인터랙티브 설정 기능 구현
+    * 냉방(DC 모터) 및 제습(서보 모터) 구동을 통한 스마트 환경 제어 실현
 
-- **수행기간**: 2026. 03. 04 ~ 03. 10
-- **사용 기술**: Verilog, Xilinx Vivado 2021.1, Xilinx Artix-7(Basys3)
+## 2. 시스템 사양 (System Specifications)
+| Specs | Details |
+| :--- | :--- |
+| **Platform** | Xilinx Artix-7 (Basys3) |
+| **Clock Speed** | 100MHz (10ns Period) |
+| **Sensor** | DHT11 (Temperature & Humidity) |
+| **Output Interface** | 4-Digit 7-Segment, DC Motor, Servo Motor, LED, Buzzer |
+| **Toolchain** | Vivado Design 2021.1 |
 
-## 담당 역할
-RTC(DS1302) 파트 담당: RTC FSM/DS1302 FSM 설계, DS1302 3-wire 통신(ds1302.v) 구현, UART·로터리 인코더 기반 시간설정 로직(rtc_fsm.v, rtc_data_parser.v) 구현
+## 3. 핵심 설계 및 기능 (System Design)
+### Master Finite State Machine (Master FSM)
+시스템의 모든 동작은 아래 4가지 Master 상태를 중심으로 제어됩니다.
+* **IDLE (2'b00):** 초기 리셋 상태. 모든 동작이 정지된 대기 상태
+* **TEMP_SET (2'b01):** 온도 임계값(Target Temp)을 설정하는 상태. FND에 설정값이 표시됨
+* **HUMI_SET (2'b10):** 습도 임계값(Target Humi)을 설정하는 상태. FND에 설정값이 표시됨
+* **RUN (2'b11):** 실제 센서 데이터와 임계값을 비교하여 DC 모터 및 서보 모터를 구동하는 가동 상태
 
-## 주요 구현 내용
-### 전체 시스템 구성
-Master/RTC/DS1302/DHT11 FSM으로 구성되며, RTC 시각과 설정 알람 시각이 일치하거나 초음파 센서가 사람을 감지하면 system_on 트리거로 모터가 구동됩니다.
+### 주요 모듈 구현 특징
+* **DHT11 Controller:** 1-Wire 프로토콜을 구현하여 40-bit 데이터를 수신하고, 유효한 데이터인지 체크섬으로 검증
+* **Threshold Control:** 버튼 입력(UP/DOWN)에 따라 온도/습도 설정값을 변경하며, 설정 완료 시 다음 상태로 전이
+* **PWM Actuator Control:**
+    * **냉방:** 현재 온도가 설정값보다 높을 때 DC 모터를 가동하여 냉방 수행
+    * **제습:** 현재 습도가 설정값보다 높을 때 서보 모터를 회전시켜 제습 수행
+* **FND Display:** Master FSM의 상태에 따라 현재 데이터와 설정 데이터(Target)를 구분하여 출력
 
-### RTC(DS1302) FSM 설계 (본인 담당)
-- RTC FSM: S_INIT → S_IDLE(UART/로터리/자동갱신 요청 대기) → S_READ/S_UART_WRITE/S_ROTARY_WRITE → S_WAIT → S_RELAX 7-state 구조로 통신 요청 우선순위(①PC 시간설정 ②로터리 인코더 ③자동갱신) 처리
-- DS1302 FSM: IDLE → ACTIVE(SCLK 동기화 커맨드+데이터 송수신) → CE_HOLD → DONE 4-state로 3-wire(CE/IO/SCLK) 프로토콜 구현
+## 4. 트러블슈팅 (Trouble-shooting)
+PDF에 기록된 실제 기술적 문제 해결 사례입니다.
 
-![전체 시스템 Schematic](images/hvac_1.png)
+* **FND 데이터 고정 및 갱신 오류:** FND가 항상 현재 온습도만 표시하여 설정값을 확인하기 어려웠던 문제. -> Master FSM의 상태(TEMP_SET, HUMI_SET)와 연동하여 **설정 모드 시 설정값이 출력되도록 출력 로직을 분기**하여 해결
+* **FSM 상태 전이 안정성 확보:** 상태 전환 시 버튼 입력이 중복되거나 무시되는 현상 발생. -> 모든 제어 버튼에 **상승 엣지 검출(Positive Edge Detection)** 로직을 추가하여 한 번의 클릭에 정확히 한 단계씩 상태가 변하도록 개선
+* **모듈 간 신호 충돌 방지:** 여러 모듈이 동시에 출력 포트를 제어하려 할 때 발생하는 데이터 꼬임 현상. -> 모든 실행 명령을 **Master FSM의 제어 신호(Enable)에 종속**시켜 동작 우선순위를 명확히 함
 
-### Oscilloscope 실측 검증 및 Testbench (본인 담당)
-실제 보드에서 오실로스코프로 IO/SCLK 파형을 캡쳐해 0x83(분 읽기) 커맨드 응답을 직접 확인했습니다.
+## 5. 검증 결과 (Test-bench & Result)
+* **Master FSM 시뮬레이션:** IDLE -> TEMP_SET -> HUMI_SET -> RUN으로 이어지는 상태 전이 시나리오 검증
+* **임계값 비교 로직:** 센서 데이터가 설정치를 초과하는 순간 정확히 PWM 신호가 발생하는지 파형 분석 완료
 
-![DS1302 통신 Sequence Chart 및 Oscilloscope 실측 파형](images/hvac_2.png)
-
-## 문제해결
-- **DS1302 특정 비트에서 데이터가 깨지는 현상**: 데이터를 반 클럭 먼저 준비해 SCLK 하강 엣지 시점과 칩이 읽는 시점의 마진을 최적화해 해결
-- **PC(UART)·로터리 인코더·자동갱신 3곳에서 동시에 들어오는 RTC 통신 요청 충돌 가능성**: rtc_fsm.v에서 우선순위를 두고 요청을 순차 처리하도록 설계
-
-## 회고
-DS1302는 SCLK 하강 엣지에 맞춰 정확한 타이밍으로 주고받아야 하는 칩이라, 오실로스코프로 실제 파형을 직접 찍어보고 나서야 데이터가 깨지는 원인을 확신할 수 있었습니다. 실측 검증의 중요성을 크게 느꼈습니다.
+---
+**작성일:** 2026. 03. 17
+**개발자:** 이경한, 이동빈

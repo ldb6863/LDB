@@ -1,29 +1,50 @@
 # FPGA 기반 임베디드 전자레인지 시스템 설계
+> **FSM을 활용한 하드웨어 통합 제어 및 PWM 정밀 구동 실현**
 
-## 개요
-FSM 기반으로 전자레인지의 대기/조리/일시정지/완료 상태를 제어하고, DC·서보모터·부저·FND 등 이종 인터페이스를 통합해 PWM 정밀 구동 제어를 구현한 프로젝트입니다. 문 열림 감지 안전 로직과 버튼 디바운싱으로 시스템 신뢰성을 확보했습니다.
+## 1. 프로젝트 개요 (Project Introduction)
+* **주제:** Xilinx Artix-7(Basys3) FPGA를 활용한 임베디드 전자레인지 시스템 설계
+* **목표:**
+    * FSM(Finite State Machine)을 활용하여 대기, 조리, 일시정지, 완료 상태의 유기적 제어 로직 설계
+    * DC·서보 모터, 부저, FND 등 이기종 하드웨어 인터페이스 통합 및 PWM 정밀 제어
+    * 조리 중 문 열림 감지 시 즉시 중단되는 안전 로직과 버튼 디바운싱을 통한 시스템 신뢰성 확보
 
-- **수행기간**: 2026. 02. 25 ~ 03. 02
-- **사용 기술**: Verilog, Xilinx Vivado 2021.1, Xilinx Artix-7(Basys3)
+## 2. 시스템 사양 (System Specifications)
+| Specs | Details |
+| :--- | :--- |
+| **Platform** | Xilinx Artix-7 (Basys3) |
+| **Clock Speed** | 100MHz (10ns Period) |
+| **Input** | Reset SW, Push Buttons |
+| **Output** | 4-Digit 7-Segment, LED, DC Motor, Servo Motor, Buzzer |
+| **Toolchain** | Vivado Design 2021.1 |
 
-## 담당 역할
-FSM/타이머/모터 제어 로직 설계 및 통합 구현 참여
+## 3. 핵심 설계 및 기능 (System Design)
+### Finite State Machine (FSM)
+시스템의 안정성을 위해 상태 변화를 정의하고 중앙 집중식 제어 로직을 구현했습니다.
+* **IDLE (2'b00):** 초기 상태 및 조리 대기. 모든 모터가 정지하며 타이머 설정값 유지
+* **COOK (2'b01):** 조리 가동 상태. DC 모터, 타이머, LED 시프트 동시 활성화
+* **PAUSE (2'b10):** 조리 중 정지 버튼 입력 또는 문 열릴 시 진입하는 안전 상태
+* **FINISH (2'b11):** 조리 완료 상태. 완료 멜로디 출력 및 FND 점멸 후 IDLE 복귀
 
-## 주요 구현 내용
-### 시스템 설계 및 FSM 구성
-IDLE/COOK/PAUSE/FINISH 4개 state로 구성된 FSM을 중심으로 timer, debouncer, fnd_controller, dc_motor, servo_motor, play_melody, shift_led 모듈을 통합했습니다.
+<img width="801" height="582" alt="image" src="https://github.com/user-attachments/assets/003718af-e0ee-4d12-acd1-d83563581e70" />
 
-### Testbench 검증
-시간설정/시작-일시정지 반복/취소/문 열림 등 8단계 시나리오로 상태 천이 및 출력 동작을 검증했습니다.
+<img width="1092" height="773" alt="image" src="https://github.com/user-attachments/assets/fc626a1b-94ac-4a3b-a932-86c1163be215" />
 
-![전체 시스템 Schematic 및 Testbench 파형](images/mw_1.png)
+### 주요 모듈 구현 특징
+* **Timer & FND:** 1초 주기의 카운트다운 기준 신호를 생성하고 BCD 기반 시간 데이터(분/초)를 표시
+* **DC Motor Control:** 70% Duty Cycle의 PWM 신호를 생성하여 회전판 속도 제어
+* **Servo Motor Control:** 50Hz 주기 기반의 PWM으로 도어 개폐 각도(0°~90°) 제어 및 진동 방지 로직 적용
+* **Melody Player:** 시작/일시정지/완료/문 열림 등 상태별 시나리오에 따른 가변 주파수 연주
 
-![문 열림 감지 시 즉시 PAUSE 전환 및 안전 로직 검증](images/mw_2.png)
+## 4. 트러블슈팅 (Trouble-shooting)
+* **버튼 엣지 검출 (Edge Detection):** 레벨 트리거 방식에서 발생하는 중복 입력 오류를 해결하기 위해 상승 엣지(Positive Edge) 검출 코드를 적용하여 버튼 조작의 정확도를 높임
+* **타이머-FSM 동기화:** 독립적으로 동작하던 타이머 로직을 FSM의 `timer_en` 신호에 강제 동기화시켜 일시정지 및 재개 시의 싱크 오류를 해결
+* **중앙 집중식 제어 구조:** 모든 입력(버튼, 센서 등)을 FSM으로 집중시켜 코드 수정 범위를 축소하고 시스템 안정성 확보
 
-## 문제해결
-- **버튼 시간 설정 오류, 시작/정지 무한 반복**: 레벨 트리거 방식으로 버튼을 인식한 것이 원인 → 엣지 검출 코드를 추가해 0→1 변화 순간만 사용하도록 수정
-- **PAUSE 상태에서도 timer가 계속 동작하는 꼬임**: FSM과 timer가 각각 독립적으로 상태를 관리한 것이 원인 → timer 독자 제어 로직을 삭제하고 FSM 신호(timer_en)로 강제 동기화
-- **모듈 간 싱크 불일치(모터는 멈췄는데 소리는 계속)**: 각 동작부가 타이머 종료 신호를 개별 감지한 것이 원인 → 모든 입력/제어신호를 FSM 하나로 중앙화해 수정 범위 축소
+## 5. 검증 결과 (Test-bench & Result)
+* **테스트벤치 시나리오:** 시간 설정(10초~1분), 조리 중 취소, 문 열림 강제 중단 등 총 9가지 예외 상황 검증 완료
+* **파라미터 최적화:** 시뮬레이션 속도 향상을 위해 하드웨어 카운트 값을 시뮬레이션용으로 가변 설계하여 검증 효율 증대
 
-## 회고
-모듈별 독립 상태관리가 계속 싱크 오류로 이어져 결국 FSM으로 제어를 전부 중앙화했는데, 이 경험으로 "제어는 한 곳에서, 실행은 분산해서"라는 설계 원칙을 체감했습니다.
+---
+**작성일:** 2026. 03. 02
+**개발자:** 이경한, 이동빈
+
