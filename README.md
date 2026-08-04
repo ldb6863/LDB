@@ -69,26 +69,31 @@
 
 ## Projects
 
-### IC Design
-
-| No. | 프로젝트 | 담당 역할 | 사용 기술 |
-|---:|---|---|---|
-| 1 | **8x8 SRAM Design (64-bit Asynchronous SRAM)** | Decoder / Pre-charge Circuit / Write Driver 설계 | Cadence Virtuoso, Spectre, ADE, Assura, GPDK 90nm |
-| 2 | **2-stage High-speed Comparator** | 90nm/180nm NMOS·PMOS Input Pair 회로 설계 및 시뮬레이션 분석 참여 | Cadence Virtuoso, Spectre, GPDK 90nm/180nm |
-| 3 | **2-stage OP-AMP** | NMOS/PMOS Input Pair 회로 설계 및 Process Corner별 특성 분석 참여 | Cadence Virtuoso, Spectre, GPDK 90nm/180nm |
-| 4 | **Repeater Design & PPA Analysis** | Repeater 설계 및 PPA 특성 분석 참여 | Cadence Virtuoso, Spectre |
-| 5 | **Large Panel Source Drive IC: Design Rules & Layout** | Source Drive IC 회로 블록 분석 및 Design Rule 작성 참여 | Cadence Virtuoso |
-| 6 | **Full-custom Digital IC: MAC Unit** | 8-bit Register, 11-bit Register 설계 | Cadence Virtuoso, Spectre |
-| 7 | **TEG Design Using PCell** | MIM Capacitor, Pad PCell 설계 및 발표 | Cadence Virtuoso, SKILL, GPDK |
-
 ### FPGA & Embedded Systems
 
 | No. | 프로젝트 | 담당 역할 | 사용 기술 |
 |---:|---|---|---|
-| 8 | **FPGA 기반 임베디드 전자레인지 시스템** | FSM·타이머·모터 제어 로직 설계 및 통합 구현 참여 | Verilog, Xilinx Vivado 2021.1, Xilinx Artix-7 |
-| 9 | **FPGA 기반 스마트 공조기 시스템** | RTC FSM, DS1302 FSM, 3-wire 통신, UART·로터리 인코더 기반 시간 설정 로직 구현 | Verilog, Xilinx Vivado 2021.1, Xilinx Artix-7 |
-| 10 | **IoT 기반 무인 도서 반납 키오스크** | STM32 키오스크·Arduino 반납기 설계 및 통합 구현 참여 | STM32F4/L4, Arduino Uno, ESP8266, HC-06, RC522, Raspberry Pi, MariaDB, TCP Socket |
-| 11 | **물류 자동 분류 시스템** | HX711 무게 측정 및 5단계 필터 파이프라인 설계, 로드셀 케이스 3D 설계 | STM32 Nucleo F411RE, FreeRTOS, C/C++, Git/GitHub |
+| 1 | **IoT 기반 무인 도서 반납 키오스크** | STM32 키오스크·Arduino 반납기 설계 및 통합 구현 참여 | STM32F4/L4, Arduino Uno, ESP8266, HC-06, RC522, Raspberry Pi, MariaDB, TCP Socket |
+| 2 | **물류 자동 분류 시스템** | HX711 무게 측정 및 5단계 필터 파이프라인 설계, 로드셀 케이스 3D 설계 | STM32 Nucleo F411RE, FreeRTOS, C/C++, Git/GitHub |
+| 3 | **FPGA 기반 임베디드 전자레인지 시스템** | FSM·타이머·모터 제어 로직 설계 및 통합 구현 참여 | Verilog, Xilinx Vivado 2021.1, Xilinx Artix-7 |
+| 4 | **FPGA 기반 스마트 공조기 시스템** | RTC FSM, DS1302 FSM, 3-wire 통신, UART·로터리 인코더 기반 시간 설정 로직 구현 | Verilog, Xilinx Vivado 2021.1, Xilinx Artix-7 |
+
+### IC Design
+
+| No. | 프로젝트 | 담당 역할 | 사용 기술 |
+|---:|---|---|---|
+| 5 | **8x8 SRAM Design (64-bit Asynchronous SRAM)** | Decoder / Pre-charge Circuit / Write Driver 설계 | Cadence Virtuoso, Spectre, ADE, Assura, GPDK 90nm |
+| 6 | **2-stage High-speed Comparator** | 90nm/180nm NMOS·PMOS Input Pair 회로 설계 및 시뮬레이션 분석 참여 | Cadence Virtuoso, Spectre, GPDK 90nm/180nm |
+| 7 | **2-stage OP-AMP** | NMOS/PMOS Input Pair 회로 설계 및 Process Corner별 특성 분석 참여 | Cadence Virtuoso, Spectre, GPDK 90nm/180nm |
+| 8 | **Repeater Design & PPA Analysis** | Repeater 설계 및 PPA 특성 분석 참여 | Cadence Virtuoso, Spectre |
+| 9 | **Large Panel Source Drive IC: Design Rules & Layout** | Source Drive IC 회로 블록 분석 및 Design Rule 작성 참여 | Cadence Virtuoso |
+| 10 | **Full-custom Digital IC: MAC Unit** | 8-bit Register, 11-bit Register 설계 | Cadence Virtuoso, Spectre |
+| 11 | **TEG Design Using PCell** | MIM Capacitor, Pad PCell 설계 및 발표 | Cadence Virtuoso, SKILL, GPDK |
+
+### AI Vision
+
+| No. | 프로젝트 | 담당 역할 | 사용 기술 |
+|---:|---|---|---|
 | 12 | **CNN 기반 얼굴형 분석 및 스타일링 추천 시스템** | CNN 얼굴형 분류, 데이터 준비, 모델 학습, 성능 개선, Jetson Nano 배포 검증 | Jetson Nano, TensorFlow 2.4.1, MobileNetV2, OpenCV, MediaPipe, SQLite, PyQt5 |
 
 ---
