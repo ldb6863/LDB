@@ -1,0 +1,3 @@
+../MyApp/bt.c:9:5:__io_putchar	16	static
+../MyApp/bt.c:18:6:btInit	8	static
+../MyApp/bt.c:26:6:btSend	16	static

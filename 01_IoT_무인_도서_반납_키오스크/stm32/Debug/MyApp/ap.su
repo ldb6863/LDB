@@ -1,0 +1,4 @@
+../MyApp/ap.c:57:6:apInit	16	static
+../MyApp/ap.c:75:6:apMain	160	static,ignoring_inline_asm
+../MyApp/ap.c:187:6:apParseServer	216	static
+../MyApp/ap.c:228:6:apLcdPrint	16	static

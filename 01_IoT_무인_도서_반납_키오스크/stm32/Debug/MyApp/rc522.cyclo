@@ -1,0 +1,16 @@
+../MyApp/rc522.c:4:13:CS_Low	1
+../MyApp/rc522.c:5:13:CS_High	1
+../MyApp/rc522.c:6:13:RST_High	1
+../MyApp/rc522.c:9:13:PCD_WriteRegister	1
+../MyApp/rc522.c:18:16:PCD_ReadRegister	1
+../MyApp/rc522.c:30:13:PCD_SetRegisterBitMask	1
+../MyApp/rc522.c:37:13:PCD_ClearRegisterBitMask	1
+../MyApp/rc522.c:44:16:PCD_CalculateCRC	4
+../MyApp/rc522.c:67:16:PCD_TransceiveData	24
+../MyApp/rc522.c:126:16:PICC_RequestA	6
+../MyApp/rc522.c:139:16:PICC_Select	25
+../MyApp/rc522.c:261:6:RC522_Init	1
+../MyApp/rc522.c:285:9:RC522_IsNewCardPresent	1
+../MyApp/rc522.c:296:9:RC522_ReadCardSerial	1
+../MyApp/rc522.c:302:6:RC522_HaltA	1
+../MyApp/rc522.c:312:6:RC522_UidToString	2
