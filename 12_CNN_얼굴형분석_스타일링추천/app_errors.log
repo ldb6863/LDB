@@ -1,0 +1,153 @@
+
+[2026-07-28 07:48:28] CNN/앙상블
+Traceback (most recent call last):
+  File "jetson_client.py", line 346, in main
+    shape, conf, method = ensemble.predict_face_shape_ensemble(
+  File "/srv/samba/miniproject_gpt_real/core/ensemble.py", line 46, in predict_face_shape_ensemble
+    cnn_probs = cnn_classifier.predict_proba(face_crop_bgr, gender, use_tta=use_tta)
+  File "/srv/samba/miniproject_gpt_real/core/cnn_classifier.py", line 369, in predict_proba
+    preds = model.predict(batch, verbose=0)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/keras/engine/training.py", line 1629, in predict
+    tmp_batch_outputs = self.predict_function(iterator)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/def_function.py", line 828, in __call__
+    result = self._call(*args, **kwds)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/def_function.py", line 894, in _call
+    return self._concrete_stateful_fn._call_flat(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 1918, in _call_flat
+    return self._build_call_outputs(self._inference_function.call(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 555, in call
+    outputs = execute.execute(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/execute.py", line 59, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+tensorflow.python.framework.errors_impl.ResourceExhaustedError:  OOM when allocating tensor with shape[5,96,112,112] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+	 [[node sequential/mobilenetv2_1.00_224/block_1_expand_BN/FusedBatchNormV3 (defined at /srv/samba/miniproject_gpt_real/core/cnn_classifier.py:369) ]]
+Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
+ [Op:__inference_predict_function_5162]
+
+Function call stack:
+predict_function
+
+
+[2026-07-28 07:48:40] CNN/앙상블
+Traceback (most recent call last):
+  File "jetson_client.py", line 346, in main
+    shape, conf, method = ensemble.predict_face_shape_ensemble(
+  File "/srv/samba/miniproject_gpt_real/core/ensemble.py", line 46, in predict_face_shape_ensemble
+    cnn_probs = cnn_classifier.predict_proba(face_crop_bgr, gender, use_tta=use_tta)
+  File "/srv/samba/miniproject_gpt_real/core/cnn_classifier.py", line 369, in predict_proba
+    preds = model.predict(batch, verbose=0)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/keras/engine/training.py", line 1629, in predict
+    tmp_batch_outputs = self.predict_function(iterator)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/def_function.py", line 828, in __call__
+    result = self._call(*args, **kwds)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/def_function.py", line 862, in _call
+    results = self._stateful_fn(*args, **kwds)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 2942, in __call__
+    return graph_function._call_flat(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 1918, in _call_flat
+    return self._build_call_outputs(self._inference_function.call(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 555, in call
+    outputs = execute.execute(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/execute.py", line 59, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+tensorflow.python.framework.errors_impl.ResourceExhaustedError:  OOM when allocating tensor with shape[5,96,112,112] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+	 [[node sequential/mobilenetv2_1.00_224/block_1_expand_BN/FusedBatchNormV3 (defined at /srv/samba/miniproject_gpt_real/core/cnn_classifier.py:369) ]]
+Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
+ [Op:__inference_predict_function_5162]
+
+Function call stack:
+predict_function
+
+
+[2026-07-28 07:48:58] CNN/앙상블
+Traceback (most recent call last):
+  File "jetson_client.py", line 346, in main
+    shape, conf, method = ensemble.predict_face_shape_ensemble(
+  File "/srv/samba/miniproject_gpt_real/core/ensemble.py", line 46, in predict_face_shape_ensemble
+    cnn_probs = cnn_classifier.predict_proba(face_crop_bgr, gender, use_tta=use_tta)
+  File "/srv/samba/miniproject_gpt_real/core/cnn_classifier.py", line 369, in predict_proba
+    preds = model.predict(batch, verbose=0)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/keras/engine/training.py", line 1629, in predict
+    tmp_batch_outputs = self.predict_function(iterator)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/def_function.py", line 828, in __call__
+    result = self._call(*args, **kwds)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/def_function.py", line 862, in _call
+    results = self._stateful_fn(*args, **kwds)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 2942, in __call__
+    return graph_function._call_flat(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 1918, in _call_flat
+    return self._build_call_outputs(self._inference_function.call(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 555, in call
+    outputs = execute.execute(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/execute.py", line 59, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+tensorflow.python.framework.errors_impl.ResourceExhaustedError:  OOM when allocating tensor with shape[5,96,112,112] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+	 [[node sequential/mobilenetv2_1.00_224/block_1_expand_BN/FusedBatchNormV3 (defined at /srv/samba/miniproject_gpt_real/core/cnn_classifier.py:369) ]]
+Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
+ [Op:__inference_predict_function_5162]
+
+Function call stack:
+predict_function
+
+
+[2026-07-28 07:49:09] CNN/앙상블
+Traceback (most recent call last):
+  File "jetson_client.py", line 346, in main
+    shape, conf, method = ensemble.predict_face_shape_ensemble(
+  File "/srv/samba/miniproject_gpt_real/core/ensemble.py", line 46, in predict_face_shape_ensemble
+    cnn_probs = cnn_classifier.predict_proba(face_crop_bgr, gender, use_tta=use_tta)
+  File "/srv/samba/miniproject_gpt_real/core/cnn_classifier.py", line 369, in predict_proba
+    preds = model.predict(batch, verbose=0)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/keras/engine/training.py", line 1629, in predict
+    tmp_batch_outputs = self.predict_function(iterator)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/def_function.py", line 828, in __call__
+    result = self._call(*args, **kwds)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/def_function.py", line 862, in _call
+    results = self._stateful_fn(*args, **kwds)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 2942, in __call__
+    return graph_function._call_flat(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 1918, in _call_flat
+    return self._build_call_outputs(self._inference_function.call(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 555, in call
+    outputs = execute.execute(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/execute.py", line 59, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+tensorflow.python.framework.errors_impl.ResourceExhaustedError:  OOM when allocating tensor with shape[5,96,112,112] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+	 [[node sequential/mobilenetv2_1.00_224/block_1_expand_BN/FusedBatchNormV3 (defined at /srv/samba/miniproject_gpt_real/core/cnn_classifier.py:369) ]]
+Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
+ [Op:__inference_predict_function_5162]
+
+Function call stack:
+predict_function
+
+
+[2026-07-28 07:49:19] CNN/앙상블
+Traceback (most recent call last):
+  File "jetson_client.py", line 346, in main
+    shape, conf, method = ensemble.predict_face_shape_ensemble(
+  File "/srv/samba/miniproject_gpt_real/core/ensemble.py", line 46, in predict_face_shape_ensemble
+    cnn_probs = cnn_classifier.predict_proba(face_crop_bgr, gender, use_tta=use_tta)
+  File "/srv/samba/miniproject_gpt_real/core/cnn_classifier.py", line 369, in predict_proba
+    preds = model.predict(batch, verbose=0)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/keras/engine/training.py", line 1629, in predict
+    tmp_batch_outputs = self.predict_function(iterator)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/def_function.py", line 828, in __call__
+    result = self._call(*args, **kwds)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/def_function.py", line 862, in _call
+    results = self._stateful_fn(*args, **kwds)
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 2942, in __call__
+    return graph_function._call_flat(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 1918, in _call_flat
+    return self._build_call_outputs(self._inference_function.call(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/function.py", line 555, in call
+    outputs = execute.execute(
+  File "/usr/local/lib/python3.8/dist-packages/tensorflow/python/eager/execute.py", line 59, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+tensorflow.python.framework.errors_impl.ResourceExhaustedError:  OOM when allocating tensor with shape[5,96,112,112] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+	 [[node sequential/mobilenetv2_1.00_224/block_1_expand_BN/FusedBatchNormV3 (defined at /srv/samba/miniproject_gpt_real/core/cnn_classifier.py:369) ]]
+Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
+ [Op:__inference_predict_function_5162]
+
+Function call stack:
+predict_function
+

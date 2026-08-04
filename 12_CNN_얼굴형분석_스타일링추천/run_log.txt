@@ -1,0 +1,71 @@
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+=== men ===
+  [men/Oval] 처리 114장 성공, 36장 얼굴 검출 실패 (총 150장 중)
+  [men/Rectangle] 처리 116장 성공, 34장 얼굴 검출 실패 (총 150장 중)
+  [men/Round] 처리 126장 성공, 24장 얼굴 검출 실패 (총 150장 중)
+  [men/Square] 처리 118장 성공, 32장 얼굴 검출 실패 (총 150장 중)
+
+=== women ===
+  [women/Oval] 처리 125장 성공, 25장 얼굴 검출 실패 (총 150장 중)
+  [women/Rectangle] 처리 124장 성공, 26장 얼굴 검출 실패 (총 150장 중)
+  [women/Round] 처리 136장 성공, 14장 얼굴 검출 실패 (총 150장 중)
+  [women/Square] 처리 142장 성공, 8장 얼굴 검출 실패 (총 150장 중)
+
+원본 데이터 저장: metrics_distribution_raw.csv (1001행)
+
+======================================================================
+ 클래스별 통계 (평균 / 중앙값 / 25%~75% 구간)
+======================================================================
+
+--- face_width_ratio ---
+                    mean  median    q25    q75
+gender face_shape                             
+men    Oval        1.565   1.570  1.526  1.609
+       Rectangle   1.563   1.560  1.527  1.604
+       Round       1.572   1.567  1.534  1.610
+       Square      1.561   1.562  1.526  1.600
+women  Oval        1.534   1.541  1.497  1.570
+       Rectangle   1.553   1.551  1.512  1.582
+       Round       1.542   1.544  1.512  1.578
+       Square      1.538   1.534  1.505  1.569
+
+--- jaw_width_ratio ---
+                    mean  median    q25    q75
+gender face_shape                             
+men    Oval        1.509   1.525  1.468  1.558
+       Rectangle   1.499   1.500  1.459  1.557
+       Round       1.525   1.540  1.482  1.582
+       Square      1.519   1.535  1.481  1.573
+women  Oval        1.444   1.446  1.407  1.487
+       Rectangle   1.479   1.476  1.433  1.518
+       Round       1.460   1.463  1.428  1.494
+       Square      1.463   1.456  1.419  1.497
+
+--- face_height_ratio ---
+                    mean  median    q25    q75
+gender face_shape                             
+men    Oval        2.090   2.073  1.971  2.184
+       Rectangle   1.896   1.937  1.778  2.026
+       Round       1.856   1.854  1.698  1.972
+       Square      1.911   1.892  1.780  2.027
+women  Oval        1.782   1.813  1.741  1.876
+       Rectangle   1.918   1.951  1.853  2.045
+       Round       1.776   1.775  1.708  1.863
+       Square      1.786   1.794  1.695  1.860
+
+--- midface_ratio ---
+                    mean  median    q25    q75
+gender face_shape                             
+men    Oval        0.755   0.734  0.675  0.808
+       Rectangle   0.796   0.749  0.693  0.830
+       Round       0.778   0.760  0.681  0.838
+       Square      0.747   0.723  0.673  0.810
+women  Oval        0.809   0.802  0.744  0.842
+       Rectangle   0.805   0.791  0.715  0.867
+       Round       0.797   0.775  0.726  0.859
+       Square      0.781   0.777  0.703  0.835
+
+※ 이 통계를 참고해서 core/landmark_analyzer.py의 THRESH_* 값을 정하세요.
+  예: jaw_width_ratio가 Square에서 유독 높게 나오면, Square의 q25~median 사이
+  값을 THRESH_WIDE_JAW로 잡는 식으로 접근하면 근거가 생깁니다.
